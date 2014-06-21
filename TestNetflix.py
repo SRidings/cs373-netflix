@@ -6,8 +6,8 @@
 
 from io       import StringIO
 from unittest import main, TestCase
-from Netflix import netflix_read, netflix_predict
-#from Netflix import netflix_write, netflix_rsme
+from Netflix import netflix_read, netflix_predict, netflix_write, sqre_diff, rmse
+import math
 
 class TestNetflix (TestCase) :
 
@@ -38,6 +38,56 @@ class TestNetflix (TestCase) :
         
         result=netflix_read(r)
         self.assertEqual("3",result)
-        
-main()
 
+    def test_write1 (self) :
+        w = StringIO()
+        netflix_write(str(123), w)
+        self.assertEqual(w.getvalue(), "123\n")
+        
+    def test_write2 (self) :
+        w = StringIO()
+        netflix_write("", w)
+        self.assertEqual(w.getvalue(), "\n")
+        
+    def test_write3 (self) :
+        w = StringIO()
+        netflix_write("123:", w)
+        self.assertEqual(w.getvalue(), "123:\n")
+    
+    def test_sqre1 (self) :
+        a = 0
+        b = 0
+        result = sqre_diff(a,b)
+        self.assertEqual(result, 0)
+    
+    def test_sqre2 (self) :
+        a = 0.0
+        b = 0.0
+        result = sqre_diff(a,b)
+        self.assertEqual(result, 0.0)
+    
+    def test_sqre3 (self) :
+        a = -2
+        b = 3
+        result = sqre_diff(a,b)
+        self.assertEqual(result, 25)
+    
+    def test_rmse1 (self) :
+        a = [1, 2, 3]
+        b = [0, 0, 0]
+        result = rmse(a,b)
+        self.assertEqual(math.sqrt(14/3), result)
+    
+    def test_rmse2 (self) :
+        a = [0, 0, 0]
+        b = [0, 0, 0]
+        result = rmse(a,b)
+        self.assertEqual(0, result)
+    
+    def test_rmse3 (self) :
+        a = [1, 2, 3]
+        b = [1, 2, 3]
+        result = rmse(a,b)
+        self.assertEqual(0, result)
+    
+main()
