@@ -30,7 +30,17 @@ def calculateOverallMovieRating(ids) :
         
     return 0        
 
-   
+def getAnswerRating (movieID, customerID) :
+    """
+    read from cache of actual customer ratings
+    """
+    assert type(movieID) is str
+    assert type(customerID) is str
+
+    with open("/u/sridings/netflix-tests/netflix-tests/osl62-AnswerCache.json") as f:
+        data=json.load(f)
+        return data[movieID + "-" + customerID]
+
 def readAvgCustomerRating(customerID) :
     """
     read from cache of avg customer ratings
@@ -63,32 +73,41 @@ def sqre_diff(a, p) :
 def netflix_write (s, w) :
     w.write(str(s) + "\n")
 
-def netflix_predict(movieID) :
+def netflix_predict(customerID, movieID) :
     """
         Currently experimenting with implementation #1
     """
-    readAvgeMovieRating(movieID)
-    return 0
+    movieAverage = float(readAvgMovieRating(movieID))
+    customerAverage = float(readAvgCustomerRating(customerID))
+    movieOffset = glbl_mean - movieAverage
+    customerOffset = customerAverage - glbl_mean
+
+    return glbl_mean + movieOffset + customerOffset
 
 def netflix_rate(r, w) :
-    ratingSum=0
-    ratingCount=0
+    runningSqDiff=0
+    count=0
+    currentMovieID = ""
+
     while (True) :
         line = netflix_read(r)
         if not line :
+            netflix_print(rmse(runningSqDiff,count),w)
             return
         elif line[-1] != ":" : #customer id
-            netflix_print(netflix_predict(line), w)
+            prediction=netflix_predict(line, currentMovieID)
+            actual=getAnswerRating(line,currentMovieID)
+            runningSqDiff+=sqre_diff(actual,prediction)
+            count+=1
+
+            netflix_print(prediction, w)
+            
         else : #movie id
+            currentMovieID=line
             netflix_print(line, w)
 
-def rmse (a, p) :
-    """
-    O(1) in space
-    O(n) in time
-    """
-    s = len(a)
-    v = sum(map(sqre_diff, a, p))
-    return math.sqrt(v / s)
+def rmse (runningSqDiff, count) :
+  
+    return math.sqrt(runningSqDiff/count)
 
 
