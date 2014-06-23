@@ -80,10 +80,20 @@ class TestNetflix (TestCase) :
         w = StringIO()
         netflix_write("123:", w)
         self.assertEqual(w.getvalue(), "123:\n")
-    
+
+    """   
     def test_predict_1 (self) :
-        result = netflix_predict("1922", "2043")
-        self.assertEqual(result, 3.0866251187847826)
+        result = netflix_predict("1417435", "2043")
+        self.assertEqual(result, 3.4)
+
+    def test_predict_2 (self) :
+        result = netflix_predict("2312054", "2043")
+        self.assertEqual(result, 4.1)
+
+    def test_predict_3 (self) :
+        result = netflix_predict("462685", "2043")
+        self.assertEqual(result, 1.9)
+    """
 
     def test_calcAvgMovieRatings_1 (self) :
         result=calculateOverallMovieRating([2043])
@@ -137,4 +147,19 @@ class TestNetflix (TestCase) :
         except AssertionError:
             pass
         
+    def test_netflix_rate_1 (self) :
+        r = StringIO("2043:\n1417435\n2312054\n462685\n")
+        w = StringIO()
+        netflix_rate(r, w)
+        self.assertEqual(w.getvalue(), "2043:\n3.3366251187847826\n4.286625118784783\n3.616625118784783\n1.9202601769526562\n")
+
 main()
+
+
+"""
+10851: 
+1417435
+2312054
+462685 
+
+"""
