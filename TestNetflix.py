@@ -14,16 +14,6 @@ class TestNetflix (TestCase) :
 #-----
 # main
 # ----
-    def test_getAnswer_1(self) :
-        r = getAnswerRating ("2043", "1417435")
-        self.assertEqual(3, r)
-    def test_getAnswer_2(self) :
-        r = getAnswerRating ("12582", "341963")
-        self.assertEqual(3, r)
-    def test_getAnswer_3(self) :
-        r = getAnswerRating ("4266", "2373027")
-        self.assertEqual(4, r)
-
 
     def test_read1 (self) :
         r = StringIO("123:\n1\n2\n3")
@@ -49,22 +39,6 @@ class TestNetflix (TestCase) :
         result=netflix_read(r)
         self.assertEqual("3",result)
 
-    def test_readJSONMovieCache_1 (self) :
-        data=readAvgMovieRating("2043")
-        self.assertEqual(data,3.7776648456358783)
-
-
-    def test_readJSONCustomerCache_1 (self) :
-        data=readAvgCustomerRating("2746")
-        self.assertEqual(data,4.68)
-
-    def test_readJSONCustomerCache_2 (self) :
-        data=readAvgCustomerRating("1922")
-        self.assertEqual(data,3.26)
-
-    def test_readJSONCustomerCache_3 (self) :
-        data=readAvgCustomerRating("2168")
-        self.assertEqual(data,3.56)
 
     def test_write1 (self) :
         w = StringIO()
@@ -81,9 +55,11 @@ class TestNetflix (TestCase) :
         netflix_write("123:", w)
         self.assertEqual(w.getvalue(), "123:\n")
 
-    """   
+    """
+    WORK IN PROGRESS
+
     def test_predict_1 (self) :
-        result = netflix_predict("1417435", "2043")
+        result = netflix_predict(1417435, 2043)
         self.assertEqual(result, 3.4)
 
     def test_predict_2 (self) :
@@ -146,13 +122,15 @@ class TestNetflix (TestCase) :
             self.assertEqual(0, result)
         except AssertionError:
             pass
-        
+    """
+    WORK IN PROGRESS
+    
     def test_netflix_rate_1 (self) :
         r = StringIO("2043:\n1417435\n2312054\n462685\n")
         w = StringIO()
         netflix_rate(r, w)
         self.assertEqual(w.getvalue(), "2043:\n3.3366251187847826\n4.286625118784783\n3.616625118784783\n1.9202601769526562\n")
-
+    """
 main()
 
 
