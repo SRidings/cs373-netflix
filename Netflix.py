@@ -5,14 +5,17 @@ from pprint import pprint
 
 #Average of every movie rated
 glbl_mean=3.604289964420661
+glbl_mean2 = 3.6054151647682318
+glbl_path_to_answer_cache = "/u/sridings/netflix-tests/netflix-tests/osl62-AnswerCache.json"
+glbl_path_to_customer_cache = "/u/sridings/netflix-tests/netflix-tests/bryan-customer_cache.json"
+glbl_path_to_average_rating = "/u/sridings/netflix-tests/netflix-tests/rbrooks-movie_average_rating.json"
 
 def netflix_read(r):
     """
     reads in a line from probe.txt
     """
     s=r.readline().split("\n")[0]
-    return s
-
+    return s    
 def calculateOverallMovieRating(ids) :
     runningSum = 0
     avgRating = 0
@@ -25,15 +28,15 @@ def calculateOverallMovieRating(ids) :
             for line in f :
                 avgRating += float(line.split(",")[1])
                 runningSum += 1
+
+        temp = "/u/downing/cs/netflix/training_set/mv_"
+
     if (runningSum!=0) :
         return avgRating/runningSum
         
     return 0        
-
+"""
 def getAnswerRating (movieID, customerID) :
-    """
-    read from cache of actual customer ratings
-    """
     assert type(movieID) is str
     assert int(movieID) >= 0
     assert type(customerID) is str
@@ -43,9 +46,6 @@ def getAnswerRating (movieID, customerID) :
         return data[movieID + "-" + customerID]
 
 def readAvgCustomerRating(customerID) :
-    """
-    read from cache of avg customer ratings
-    """
     assert int(customerID) >= 0
     assert type(customerID) is str
 
@@ -56,9 +56,7 @@ def readAvgCustomerRating(customerID) :
 
    
 def readAvgMovieRating(movieID) :
-    """
-    read from cache of avg movie ratings
-    """
+    
 
     assert int(movieID) >= 0
     assert type(movieID) is str
@@ -67,6 +65,7 @@ def readAvgMovieRating(movieID) :
     #with open("/u/mukund/cs373-netflix-tests/rbrooks-movie_average_rating.json") as f:
         data=json.load(f)
         return data[movieID]
+"""
 
 def sqre_diff(a, p) :
     return (a - p) ** 2
@@ -74,12 +73,10 @@ def sqre_diff(a, p) :
 def netflix_write (s, w) :
     w.write(str(s) + "\n")
 
-def netflix_predict(customerID, movieID) :
+def netflix_predict(customerAverage, movieAverage) :
     """
         Currently experimenting with implementation #1
     """
-    movieAverage = float(readAvgMovieRating(movieID))
-    customerAverage = float(readAvgCustomerRating(customerID))
     movieOffset = glbl_mean - movieAverage
     customerOffset = customerAverage - glbl_mean
 
@@ -90,22 +87,32 @@ def netflix_rate(r, w) :
     count=0
     currentMovieID = ""
 
+    answerCache = open(glbl_path_to_answer_cache, "r") 
+    customerCache = open(glbl_path_to_customer_cache, "r")
+    averageRating = open(glbl_path_to_average_rating, "r")
+    
+    answerDict = json.loads(answerCache.read())
+    customerDict = json.loads(customerCache.read())
+    averageDict = json.loads(averageRating.read())
+
     while (True) :
         line = netflix_read(r)
         if not line :
-        #    netflix_write(rmse(runningSqDiff,count),w)
-            return
+            print(rmse(runningSqDiff,count))
+            break
         elif line[-1] != ":" : #customer id
-            prediction=netflix_predict(line, currentMovieID)
-           # actual=getAnswerRating(currentMovieID,line)
-           # runningSqDiff+=sqre_diff(actual,prediction)
-           # count+=1
+            prediction=netflix_predict(customerDict[line], averageDict[currentMovieID])
+            actual=answerDict[currentMovieID + "-" + line]
+            runningSqDiff+=sqre_diff(actual,prediction)
+            count += 1
 
-            netflix_write(prediction, w)
-            
+            #netflix_write(prediction, w)
+      
         else : #movie id
             currentMovieID=line[:-1]
-            netflix_write(line, w)
+        
+            #netflix_write(line, w)
+
 
 def rmse (runningSqDiff, count) :
     assert count > 0 
