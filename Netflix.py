@@ -10,7 +10,7 @@ def netflix_read(r):
     """
     reads in a line from probe.txt
     """
-    s=r.readline()[:-1]
+    s=r.readline().split("\n")[0]
     return s
 
 def calculateOverallMovieRating(ids) :
@@ -35,6 +35,7 @@ def getAnswerRating (movieID, customerID) :
     read from cache of actual customer ratings
     """
     assert type(movieID) is str
+    assert int(movieID) >= 0
     assert type(customerID) is str
 
     with open("/u/sridings/netflix-tests/netflix-tests/osl62-AnswerCache.json") as f:
@@ -92,22 +93,22 @@ def netflix_rate(r, w) :
     while (True) :
         line = netflix_read(r)
         if not line :
-            netflix_print(rmse(runningSqDiff,count),w)
+        #    netflix_write(rmse(runningSqDiff,count),w)
             return
         elif line[-1] != ":" : #customer id
             prediction=netflix_predict(line, currentMovieID)
-            actual=getAnswerRating(line,currentMovieID)
-            runningSqDiff+=sqre_diff(actual,prediction)
-            count+=1
+           # actual=getAnswerRating(currentMovieID,line)
+           # runningSqDiff+=sqre_diff(actual,prediction)
+           # count+=1
 
-            netflix_print(prediction, w)
+            netflix_write(prediction, w)
             
         else : #movie id
-            currentMovieID=line
-            netflix_print(line, w)
+            currentMovieID=line[:-1]
+            netflix_write(line, w)
 
 def rmse (runningSqDiff, count) :
-  
+    assert count > 0 
     return math.sqrt(runningSqDiff/count)
 
 
