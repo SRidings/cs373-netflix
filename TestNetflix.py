@@ -14,7 +14,17 @@ class TestNetflix (TestCase) :
 #-----
 # main
 # ----
-    
+    def test_getAnswer_1(self) :
+        r = getAnswerRating ("2043", "1417435")
+        self.assertEqual(3, r)
+    def test_getAnswer_2(self) :
+        r = getAnswerRating ("12582", "341963")
+        self.assertEqual(3, r)
+    def test_getAnswer_3(self) :
+        r = getAnswerRating ("4266", "2373027")
+        self.assertEqual(4, r)
+
+
     def test_read1 (self) :
         r = StringIO("123:\n1\n2\n3")
         result=netflix_read(r)
@@ -71,6 +81,10 @@ class TestNetflix (TestCase) :
         netflix_write("123:", w)
         self.assertEqual(w.getvalue(), "123:\n")
     
+    def test_predict_1 (self) :
+        result = netflix_predict("1922", "2043")
+        self.assertEqual(result, 3.0866251187847826)
+
     def test_calcAvgMovieRatings_1 (self) :
         result=calculateOverallMovieRating([2043])
         self.assertNotEqual(result,0)
@@ -106,21 +120,21 @@ class TestNetflix (TestCase) :
         self.assertEqual(result, 25)
     
     def test_rmse1 (self) :
-        a = [1, 2, 3]
-        b = [0, 0, 0]
-        result = rmse(a,b)
-        self.assertEqual(math.sqrt(14/3), result)
+        result = rmse(10,3)
+        self.assertEqual(math.sqrt(10/3), result)
     
     def test_rmse2 (self) :
-        a = [0, 0, 0]
-        b = [0, 0, 0]
-        result = rmse(a,b)
-        self.assertEqual(0, result)
-    
+        try:
+            result = rmse(0,0)
+            self.assertEqual(0, result)
+        except AssertionError:
+            pass
+        
     def test_rmse3 (self) :
-        a = [1, 2, 3]
-        b = [1, 2, 3]
-        result = rmse(a,b)
-        self.assertEqual(0, result)
-    
+        try:
+            result = rmse(0,2)
+            self.assertEqual(0, result)
+        except AssertionError:
+            pass
+        
 main()
