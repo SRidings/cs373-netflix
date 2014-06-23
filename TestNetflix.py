@@ -6,7 +6,7 @@
 
 from io       import StringIO
 from unittest import main, TestCase
-from Netflix import netflix_read, netflix_predict, netflix_write, sqre_diff, rmse
+from Netflix import *
 import math
 
 class TestNetflix (TestCase) :
@@ -39,6 +39,23 @@ class TestNetflix (TestCase) :
         result=netflix_read(r)
         self.assertEqual("3",result)
 
+    def test_readJSONMovieCache_1 (self) :
+        data=readAvgMovieRating("2043")
+        self.assertEqual(data,3.7776648456358783)
+
+
+    def test_readJSONCustomerCache_1 (self) :
+        data=readAvgCustomerRating("2746")
+        self.assertEqual(data,4.68)
+
+    def test_readJSONCustomerCache_2 (self) :
+        data=readAvgCustomerRating("1922")
+        self.assertEqual(data,3.26)
+
+    def test_readJSONCustomerCache_3 (self) :
+        data=readAvgCustomerRating("2168")
+        self.assertEqual(data,3.56)
+
     def test_write1 (self) :
         w = StringIO()
         netflix_write(str(123), w)
@@ -54,6 +71,22 @@ class TestNetflix (TestCase) :
         netflix_write("123:", w)
         self.assertEqual(w.getvalue(), "123:\n")
     
+    def test_calcAvgMovieRatings_1 (self) :
+        result=calculateOverallMovieRating([2043])
+        self.assertNotEqual(result,0)
+      
+    def test_calcAvgMovieRatings_2 (self) :
+        result=calculateOverallMovieRating([14550])
+        self.assertEqual(result,4.593383932407275)
+        
+    def test_calcAvgMovieRatings_3 (self) :
+        result=calculateOverallMovieRating([])
+        self.assertEqual(result,0)
+        
+    def test_calcAvgMovieRatings_4 (self) :
+        result=calculateOverallMovieRating([2043])
+        self.assertEqual(result,3.7776648456358783)
+          
     def test_sqre1 (self) :
         a = 0
         b = 0
