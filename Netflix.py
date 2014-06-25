@@ -17,10 +17,11 @@ glbl_mean2 = 3.6054151647682318
 glbl_cust_mean = 3.6736284920068587
 user ="sridings/netflix-tests/"
 glbl_path_to_answer_cache = "/u/"+user+"netflix-tests/osl62-AnswerCache.json"
-glbl_path_to_customer_cache = "/u/"+user+"netflix-tests/osl62-CustomerCache.json"
 glbl_path_to_average_rating = "/u/"+user+"netflix-tests/rbrooks-movie_average_rating.json"
-glbl_path_to_norm_average_rating = "sridings-mov-normed-avg.json"
 glbl_path_to_cust_avg = "/u/"+user+"netflix-tests/bryan-customer_cache.json"
+glbl_path_to_cust_cache_by_dec = "/u/"+user+"netflix-tests/ahsu-cust_by_decade.json"
+glbl_path_to_movie_cache_by_dec = "/u/"+user+"netflix-tests/isabella-movie_decades_cache.json"
+
 
 def netflix_read(r):
     """
@@ -44,7 +45,7 @@ def netflix_write (s, w) :
     
     w.write(str(s) + "\n")
 
-def netflix_predict(customerAverage, normMovAvg, movAvg, custAvg) :
+def netflix_predict(customerAverage,  movAvg, custAvg) :
     """
         Currently experimenting with implementation #1
         Trying different combinations of numerators and
@@ -89,17 +90,16 @@ def netflix_rate(r, w) :
     answerCache = open(glbl_path_to_answer_cache, "r") 
     customerCache = open(glbl_path_to_customer_cache, "r")
     averageRating = open(glbl_path_to_average_rating, "r")
-    normAvgRating = open(glbl_path_to_norm_average_rating, "r")
     customerAvg = open(glbl_path_to_cust_avg, "r")
-
-    #TODO: remove and point to proper probe.txt path
-   # data = open("/u/sridings/cs373-netflix/probe.txt", "r")
+    custByDec = open(glbl_path_to_cust_cache_by_dec, "r")
+    movByDec = open(glbl_path_to_movie_cache_by_dec, "r")
     
     answerDict = json.loads(answerCache.read())
     customerDict = json.loads(customerCache.read())
     averageDict = json.loads(averageRating.read())
-    normAvgDict = json.loads(normAvgRating.read())
     customerAvgDict = json.loads(customerAvg.read())
+    custDecDict = json.loads(custByDec.read())
+    movDecDict = json.loads(movByDec.read())
 
     while (True) :
         #TODO: switch 
