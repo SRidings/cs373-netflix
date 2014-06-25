@@ -12,9 +12,6 @@ glbl_path_to_customer_cache
 glbl_path_to_average_rating
 
 """
-glbl_mean=3.604289964420661
-glbl_mean2 = 3.6054151647682318
-glbl_cust_mean = 3.6736284920068587
 user ="sridings/netflix-tests/"
 glbl_path_to_answer_cache = "/u/"+user+"netflix-tests/osl62-AnswerCache.json"
 glbl_path_to_average_rating = "/u/"+user+"netflix-tests/rbrooks-movie_average_rating.json"
@@ -28,7 +25,7 @@ def netflix_read(r):
     Input r is a reader. r reads from sys. in
     reads in a line from probe.txt
     """
-    s=r.readline().split("\n")[0]
+    s=r.readline().strip()
     return s    
    
 def sqre_diff(a, p) :
@@ -45,31 +42,25 @@ def netflix_write (s, w) :
     
     w.write(str(s) + "\n")
 
-def netflix_predict(customerAverage,  movAvg, custAvg) :
+def netflix_predict(customerAverage,  movAvg, custDecadeAverage) :
     """
         Currently experimenting with implementation #1
         Trying different combinations of numerators and
         denominators.
 
     """
-      
-    if (customerAverage[2] == 0) :
-        
-       return (((movAvg)*(9/10)) + (customerAverage[1]*(14/10)))/2
+    assert ( 0 < customerAverage <= 5)
+    assert ( 0 < movAvg <= 5)
+    assert ( 0 <= custDecadeAverage <= 5)    
 
+    cAvg = 0
+
+    if (custDecadeAverage == 0) :
+        cAvg = customerAverage
     else :
-       return (movAvg + customerAverage[1])/2
-   
+        cAvg = custDecadeAverage
+    return round((movAvg*(494/1000) + cAvg*(506/1000)), 1)        
     
-    
-    #return (customerAverage* (525/1000) + movAvg * (475/1000))
-    #return (customerAverage[0]) + (customerAverage[2])*normMovAvg
-    #return ((overallMean + movieAverage + customerAverage) / 3)
-    #return customerAverage*(num1/d) + movieAverage*(num2/d)
-
-#TODO: switch 
-
-#def netflix_rate(r, w, num1,num2,d) :
 def netflix_rate(r, w) :
     """
     r is the reader
@@ -82,50 +73,50 @@ def netflix_rate(r, w) :
     running sum of the square differences instead of keeping
     the actual and corresponding predicted values in separate
     lists. 
-    """
+    """  
     runningSqDiff=0
     count=0
     currentMovieID = ""
+    movieDecade = ""
 
     answerCache = open(glbl_path_to_answer_cache, "r") 
-    customerCache = open(glbl_path_to_customer_cache, "r")
     averageRating = open(glbl_path_to_average_rating, "r")
     customerAvg = open(glbl_path_to_cust_avg, "r")
     custByDec = open(glbl_path_to_cust_cache_by_dec, "r")
     movByDec = open(glbl_path_to_movie_cache_by_dec, "r")
     
     answerDict = json.loads(answerCache.read())
-    customerDict = json.loads(customerCache.read())
     averageDict = json.loads(averageRating.read())
     customerAvgDict = json.loads(customerAvg.read())
     custDecDict = json.loads(custByDec.read())
     movDecDict = json.loads(movByDec.read())
 
     while (True) :
-        #TODO: switch 
         line = netflix_read(r)
-       # line= data.readline().split("\n")[0]
 
         if not line :
-            print (rmse(runningSqDiff,count))
+            netflix_write("RMSE: " + str(rmse(runningSqDiff,count)), w)
             break
 
         elif line[-1] != ":" : #customer id
-#TODO: switch
-#            prediction=netflix_predict(customerDict[line], averageDict[currentMovieID])
 
-            prediction=netflix_predict(customerDict[line],normAvgDict[currentMovieID],averageDict[currentMovieID], customerAvgDict[line])
+            prediction=netflix_predict(customerAvgDict[line],averageDict[currentMovieID], custDecDict[line][movieDecade])
             actual=answerDict[currentMovieID + "-" + line]
             runningSqDiff+=sqre_diff(actual,prediction)
             count += 1
 
-            #netflix_write(prediction, w)
+            netflix_write(prediction, w)
       
         else : #movie id
-            #TODO: write the predictions out?
             currentMovieID=line[:-1]
-        
-            #netflix_write(line, w)
+            movieDecade = movDecDict[currentMovieID]
+            netflix_write(line, w)
+    
+    answerCache.close()
+    averageRating.close()
+    customerAvg.close()
+    custByDec.close()
+    movByDec.close()
 
 def rmse (runningSqDiff, count) :
     """
@@ -135,6 +126,6 @@ def rmse (runningSqDiff, count) :
     returned.
     """
     assert count > 0 
-    return math.sqrt(runningSqDiff/count)
+    return round((math.sqrt(runningSqDiff/count)),4)
 
 
