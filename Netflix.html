@@ -1,0 +1,64 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module Netflix</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>Netflix</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/v/filer4b/v38q001/sridings/cs373-netflix/Netflix.py">/v/filer4b/v38q001/sridings/cs373-netflix/Netflix.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="json.html">json</a><br>
+</td><td width="25%" valign=top><a href="math.html">math</a><br>
+</td><td width="25%" valign=top></td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-netflix_predict"><strong>netflix_predict</strong></a>(customerAverage, movAvg, custDecadeAverage)</dt><dd><tt>Currently&nbsp;experimenting&nbsp;with&nbsp;implementation&nbsp;#1<br>
+Trying&nbsp;different&nbsp;combinations&nbsp;of&nbsp;numerators&nbsp;and<br>
+denominators.</tt></dd></dl>
+ <dl><dt><a name="-netflix_rate"><strong>netflix_rate</strong></a>(r, w)</dt><dd><tt>r&nbsp;is&nbsp;the&nbsp;reader<br>
+w&nbsp;is&nbsp;the&nbsp;writer<br>
+Generates&nbsp;predictions&nbsp;of&nbsp;ratings&nbsp;based&nbsp;on&nbsp;the&nbsp;<br>
+given&nbsp;input&nbsp;from&nbsp;sys&nbsp;in&nbsp;(Probe.txt).&nbsp;The&nbsp;predictions<br>
+are&nbsp;given&nbsp;by&nbsp;netflix_predict.<br>
+&nbsp;<br>
+The&nbsp;rmse&nbsp;is&nbsp;also&nbsp;calculated&nbsp;by&nbsp;keeping&nbsp;track&nbsp;of&nbsp;the<br>
+running&nbsp;sum&nbsp;of&nbsp;the&nbsp;square&nbsp;differences&nbsp;instead&nbsp;of&nbsp;keeping<br>
+the&nbsp;actual&nbsp;and&nbsp;corresponding&nbsp;predicted&nbsp;values&nbsp;in&nbsp;separate<br>
+lists.</tt></dd></dl>
+ <dl><dt><a name="-netflix_read"><strong>netflix_read</strong></a>(r)</dt><dd><tt>Input&nbsp;r&nbsp;is&nbsp;a&nbsp;reader.&nbsp;r&nbsp;reads&nbsp;from&nbsp;sys.&nbsp;in<br>
+reads&nbsp;in&nbsp;a&nbsp;line&nbsp;from&nbsp;probe.txt</tt></dd></dl>
+ <dl><dt><a name="-netflix_write"><strong>netflix_write</strong></a>(s, w)</dt><dd><tt>writes&nbsp;the&nbsp;object&nbsp;s&nbsp;to&nbsp;the&nbsp;writer&nbsp;w.<br>
+It&nbsp;appends&nbsp;a&nbsp;new&nbsp;line&nbsp;also.</tt></dd></dl>
+ <dl><dt><a name="-rmse"><strong>rmse</strong></a>(runningSqDiff, count)</dt><dd><tt>rmse&nbsp;calculates&nbsp;the&nbsp;root&nbsp;mean&nbsp;square&nbsp;error.<br>
+It&nbsp;is&nbsp;given&nbsp;the&nbsp;running&nbsp;sum&nbsp;of&nbsp;square&nbsp;differences<br>
+and&nbsp;the&nbsp;count&nbsp;to&nbsp;divide&nbsp;by.&nbsp;The&nbsp;square&nbsp;root&nbsp;is&nbsp;then&nbsp;<br>
+returned.</tt></dd></dl>
+ <dl><dt><a name="-sqre_diff"><strong>sqre_diff</strong></a>(a, p)</dt><dd><tt>returns&nbsp;(&nbsp;a&nbsp;-&nbsp;p&nbsp;)&nbsp;squared</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>glbl_path_to_answer_cache</strong> = '/u/sridings/netflix-tests/netflix-tests/osl62-AnswerCache.json'<br>
+<strong>glbl_path_to_average_rating</strong> = '/u/sridings/netflix-tests/netflix-tests/rbrooks-movie_average_rating.json'<br>
+<strong>glbl_path_to_cust_avg</strong> = '/u/sridings/netflix-tests/netflix-tests/bryan-customer_cache.json'<br>
+<strong>glbl_path_to_cust_cache_by_dec</strong> = '/u/sridings/netflix-tests/netflix-tests/ahsu-cust_by_decade.json'<br>
+<strong>glbl_path_to_movie_cache_by_dec</strong> = '/u/sridings/netflix-tests/netflix-tests/isabella-movie_decades_cache.json'<br>
+<strong>user</strong> = 'sridings/netflix-tests/'</td></tr></table>
+</body></html>
