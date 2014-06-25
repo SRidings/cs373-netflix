@@ -55,38 +55,30 @@ class TestNetflix (TestCase) :
         netflix_write("123:", w)
         self.assertEqual(w.getvalue(), "123:\n")
 
-    """
-    WORK IN PROGRESS
+    
 
     def test_predict_1 (self) :
-        result = netflix_predict(1417435, 2043)
-        self.assertEqual(result, 3.4)
+        try :
+            result = netflix_predict(0, 0, 0)
+        except AssertionError :
+            pass
+        except Exception :
+            print ("unknown exception raised.")
 
     def test_predict_2 (self) :
-        result = netflix_predict("2312054", "2043")
-        self.assertEqual(result, 4.1)
+        try :
+            result = netflix_predict(-1, -1, -1 )
+        except AssertionError :
+            pass
+        except Exception :
+            print ("unknown exception raised.")
 
     def test_predict_3 (self) :
-        result = netflix_predict("462685", "2043")
-        self.assertEqual(result, 1.9)
-    """
+        result = netflix_predict(1, 1, 1)
+        self.assertEqual(result, 1)
+    
 
-    def test_calcAvgMovieRatings_1 (self) :
-        result=calculateOverallMovieRating([2043])
-        self.assertNotEqual(result,0)
-      
-    def test_calcAvgMovieRatings_2 (self) :
-        result=calculateOverallMovieRating([14550])
-        self.assertEqual(result,4.593383932407275)
         
-    def test_calcAvgMovieRatings_3 (self) :
-        result=calculateOverallMovieRating([])
-        self.assertEqual(result,0)
-        
-    def test_calcAvgMovieRatings_4 (self) :
-        result=calculateOverallMovieRating([2043])
-        self.assertEqual(result,3.7776648456358783)
-          
     def test_sqre1 (self) :
         a = 0
         b = 0
@@ -107,7 +99,7 @@ class TestNetflix (TestCase) :
     
     def test_rmse1 (self) :
         result = rmse(10,3)
-        self.assertEqual(math.sqrt(10/3), result)
+        self.assertEqual(round(math.sqrt(10/3),4), result)
     
     def test_rmse2 (self) :
         try:
@@ -122,22 +114,23 @@ class TestNetflix (TestCase) :
             self.assertEqual(0, result)
         except AssertionError:
             pass
-    """
-    WORK IN PROGRESS
     
     def test_netflix_rate_1 (self) :
         r = StringIO("2043:\n1417435\n2312054\n462685\n")
         w = StringIO()
         netflix_rate(r, w)
-        self.assertEqual(w.getvalue(), "2043:\n3.3366251187847826\n4.286625118784783\n3.616625118784783\n1.9202601769526562\n")
-    """
+        self.assertEqual(w.getvalue(), "2043:\n3.9\n3.7\n3.9\n1.6442\n")
+    
+    def test_netflix_rate_2 (self) :
+        r = StringIO("10:\n1952305\n1531863\n")
+        w = StringIO()
+        netflix_rate(r, w)
+        self.assertEqual(w.getvalue(), "10:\n3.3\n3.2\n0.255\n")
+    
+    def test_netflix_rate_3 (self) :
+        r = StringIO("10849:\n2494075\n335030\n1943479\n")
+        w = StringIO()
+        netflix_rate(r, w)
+        self.assertEqual(w.getvalue(), "10849:\n3.2\n3.7\n3.6\n0.911\n")
+    
 main()
-
-
-"""
-10851: 
-1417435
-2312054
-462685 
-
-"""
