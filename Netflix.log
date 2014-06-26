@@ -1,0 +1,125 @@
+commit b54c30b60c46acf7ff8dacafa7da496ed4d4ddfd
+Author: Stephen Ridings <sridings777@aol.com>
+Date:   Thu Jun 26 14:12:44 2014 -0500
+
+    Added updated RunNetflix.py and Netflix.py. Resolves #22.
+
+commit 26e7639c0fd7041329c44d74ee83afd45e194823
+Author: Stephen Ridings <sridings777@aol.com>
+Date:   Wed Jun 25 15:50:14 2014 -0500
+
+    Added pydoc of Netflix.html. Resolves #9
+
+commit fa535fad6bee81cac30f99acae886e46039b9b27
+Author: Stephen Ridings <sridings777@aol.com>
+Date:   Wed Jun 25 15:45:15 2014 -0500
+
+    Pass 5 other students acceptance tests - (bryan,ahsu,btetz,eros,knicola). Resolves #27.
+
+commit 6184083e1e4b7fa61d5447f0c7c47114910bf89d
+Author: Stephen Ridings <sridings777@aol.com>
+Date:   Wed Jun 25 15:20:20 2014 -0500
+
+    TestNetflix.py with 3 tests per function. Resolves #12, and Resolves #3.
+
+commit ace81528b50965df9040ebc2c5e1bc0fa8d0db37
+Author: Stephen Ridings <sridings777@aol.com>
+Date:   Wed Jun 25 14:23:35 2014 -0500
+
+    Implementing prediction algorithm #3
+
+commit 67369d96e46f75b345dad31cc74bb4a8b378cf48
+Author: Stephen Ridings <sridings777@aol.com>
+Date:   Wed Jun 25 14:07:31 2014 -0500
+
+    Improved precision of prediction algorithm - still above 1.0
+
+commit 1ede5cea7272e79c1fe633a55f28f24b520c3f05
+Author: Stephen Ridings <sridings777@aol.com>
+Date:   Mon Jun 23 17:46:06 2014 -0500
+
+    Sample acceptance test of 1000 lines of probe.txt. This resolves #5.
+
+commit 420eda72e8d1097237172a9d2cdef98ead92d4a3
+Author: Stephen Ridings <sridings777@aol.com>
+Date:   Mon Jun 23 17:44:43 2014 -0500
+
+    Sample acceptance test of 1000 lines of probe.txt. This resolves #23.
+
+commit 18382082688aa5ac72b02beb49b715132f93f2fc
+Author: Stephen Ridings <sridings777@aol.com>
+Date:   Mon Jun 23 15:24:33 2014 -0500
+
+    Refactored unit tests in TestNetflix.py. Resolves #21
+
+commit 649cfafb421e2a52d61b19ab44b89c4046a68832
+Author: Stephen Ridings <sridings777@aol.com>
+Date:   Mon Jun 23 15:18:07 2014 -0500
+
+    Refactored Netflix.py to open cache files ones. Resolves #20, Resolves #8, and Resolves #4
+
+commit d5121dcd9eed46777953356d50db87394eaf4b99
+Author: Stephen Ridings <sridings777@aol.com>
+Date:   Mon Jun 23 14:36:06 2014 -0500
+
+    Refactored main method in Netflix.py
+
+commit 2d87e6d8a5412783642d65883b363d92a11b7c0a
+Author: Stephen Ridings <sridings777@aol.com>
+Date:   Sun Jun 22 20:46:42 2014 -0500
+
+    Implemented tests to test implementation #1. This resolves #15, resolves #14, resolves #7, resolves #2, resolves #16, resolves #19
+
+commit 246f91582c3faae8f864230fe02878debfc8a373
+Author: Stephen Ridings <sridings777@aol.com>
+Date:   Sun Jun 22 20:22:11 2014 -0500
+
+    Refactored rmse test to correspond to current impl. This resolves #2
+
+commit b8a7056f89b9b481a281686599625afd6b8bd9f9
+Author: Stephen Ridings <sridings777@aol.com>
+Date:   Sun Jun 22 20:17:55 2014 -0500
+
+    Implemented the netflix_rate to include the rmse calculation
+
+commit 71081d3123787ebd9e1b5443fcfede280319927d
+Author: Stephen Ridings <sridings777@aol.com>
+Date:   Sun Jun 22 19:10:20 2014 -0500
+
+    Implemented helper methods to calculate overall mean. This resolves #17, resolves #18
+
+commit 1a2312bd5ef4f753a30deb47a1f3f9221390cb19
+Author: Stephen Ridings <sridings777@aol.com>
+Date:   Sun Jun 22 19:09:02 2014 -0500
+
+    Implemented tests for reading from cache files (customer and movie).
+
+commit c81300a8028bf68a02a2551578decf76fbdaa60d
+Author: Stephen Ridings <sridings777@aol.com>
+Date:   Sat Jun 21 16:07:09 2014 -0500
+
+    Started to implement the prediction #1 algorithm and cache reader
+
+commit 69da9fe2eae36b3d4f5d838fc30e14bfccd3d676
+Author: Stephen Ridings <sridings777@aol.com>
+Date:   Sat Jun 21 15:06:13 2014 -0500
+
+    Implemented tests for rmse, sqre_diff and netflix_write
+
+commit 2a398af500e60aa4d961dcf53244b31903e527e7
+Author: Stephen Ridings <sridings777@aol.com>
+Date:   Sat Jun 21 14:31:24 2014 -0500
+
+    Testing netflix_read.
+
+commit 717488dc8addda1fc60289dd0df9617ca57febeb
+Author: Stephen Ridings <sridings777@aol.com>
+Date:   Sat Jun 21 14:13:09 2014 -0500
+
+    Implemented Netflix methods in Netflix.py. This resolves #13.
+
+commit e74f60bf0b88441c0345804d94218453307aafcf
+Author: Stephen Ridings <sridings777@aol.com>
+Date:   Thu Jun 19 22:54:30 2014 -0500
+
+    first commit
