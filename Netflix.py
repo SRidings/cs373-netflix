@@ -4,15 +4,12 @@ import math,json
 from pprint import pprint
 
 #Average of every movie rated
+
 """
 Paths to the following cache files
 
-glbl_path_to_answer_cache
-glbl_path_to_customer_cache
-glbl_path_to_average_rating
-
 """
-user ="sridings/netflix-tests/"
+user ="mukund/"
 glbl_path_to_answer_cache = "/u/"+user+"netflix-tests/osl62-AnswerCache.json"
 glbl_path_to_average_rating = "/u/"+user+"netflix-tests/rbrooks-movie_average_rating.json"
 glbl_path_to_cust_avg = "/u/"+user+"netflix-tests/bryan-customer_cache.json"
